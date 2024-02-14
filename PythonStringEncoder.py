@@ -23,7 +23,7 @@ def reverse(string):
   
   return returnString
 
-def createSeed(securityLevel=1):
+def createSeed(securityLevel=10):
   """
   Creates a seed used for encoding
 
