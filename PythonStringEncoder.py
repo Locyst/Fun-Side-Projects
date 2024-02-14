@@ -1,8 +1,8 @@
 import random
 
 # Things to do
-# Add capitals to encryption method
-# Find ways to improve security
+# Make capitals work for decoding
+# Add more security
 
 def reverse(string):
   """
@@ -32,13 +32,21 @@ def createSeed(securityLevel=1):
    seed is. Do not input decimals ( Default is 1 )
 
   Returns:
-   List: A list that has where the captials are, how far back to
-   go, how far forwards to go and an extra
+   - List: A list that has where the captials are, how far back
+   to go, how far forwards to go and an extra
   """
-  capitals = random.randint(0, 9 * securityLevel)
-  backs = random.randint(0, 9 * securityLevel)
-  fronts = random.randint(0, 9 * securityLevel)
-  extra = random.randint(0, 9 * securityLevel)
+  capitals = 0
+  backs = 0
+  fronts = 0
+  extra = 0
+  
+  highest = 9 * securityLevel
+  
+  capitals = random.randint(0, highest)
+  while backs == fronts:
+    backs = random.randint(0, highest)
+    fronts = random.randint(0, highest)
+  extra = random.randint(0, highest)
 
   return [capitals, backs, fronts, extra]
 
@@ -57,9 +65,17 @@ def encode(string, seed=None):
     seed = createSeed()
     print(f'Creating encoded message using seed: {seed}')
   encoded = []
+  capitals = []
 
   encoded.append("+")
+  i = seed[0]
 
+  while i < len(string):
+    capitals.append(i)
+    i += seed[0]
+  print(f"Encoded Capitals: {capitals}")
+
+  i = seed[3]
   for word in string:
       for character in word:
           if character == " ":
@@ -69,9 +85,12 @@ def encode(string, seed=None):
               encoded.append("%40")
               encoded.append("+")
           else:
-              encoded.append(str(ord(character) - seed[1] + seed[2]))
+              if i in capitals:
+                encoded.append(str(ord(character.upper()) - seed[1] + seed[2]))
+              else:
+                encoded.append(str(ord(character) - seed[1] + seed[2]))
               encoded.append("+")
-  
+      i += 1
   
   return reverse(''.join(encoded))
 
@@ -91,10 +110,17 @@ def decode(string, seed):
   string = reverse(string)
   list = string.split('+')
   decoded = []
-
+  capitals = []
   
   while("" in list):
     list.remove("")
+
+  i = seed[0]
+
+  while i < len(list):
+    capitals.append(i)
+    i += seed[0]
+  print(f'Decoded Capitals: {capitals}')
 
   for character in list:
     if "%" in character:
@@ -104,12 +130,10 @@ def decode(string, seed):
         case "%40":
           decoded.append("+")
     else:
-      decoded.append(chr(int(character) + seed [1] - seed[2]))
+      if i in capitals:
+        decoded.append(chr(int(character) + seed[1] - seed[2]).lower())
+      else:
+        decoded.append(chr(int(character) + seed[1] - seed[2]))
+    i += 1
   
   return ''.join(decoded)
-
-seed = createSeed(5)
-
-string = encode("Goodbye World!", seed)
-print(string)
-print(decode(string, seed))
