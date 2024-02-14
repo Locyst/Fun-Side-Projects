@@ -1,5 +1,24 @@
 import random
 
+def reverse(string):
+  """
+  Returns a reversed string
+  
+  Parameters:
+  - string (string): The string that will be reversed
+  
+  Returns:
+  string: A reversed string of the parameter, string.
+  """
+  returnString = ''
+  
+  
+  for word in string:
+      for character in word:
+          returnString = character + returnString
+  
+  return returnString
+
 def createSeed():
   capitals = random.randint(0, 9)
   backs = random.randint(0, 9)
@@ -28,12 +47,14 @@ def encode(string, seed=None):
           else:
               encoded.append(str(ord(character) - seed[1] + seed[2]))
               encoded.append("+")
-
-  return ''.join(encoded)
+  
+  
+  return reverse(''.join(encoded))
 
 def decode(string, seed):
   if seed is None:
     print("Cannot run without a seed")
+  string = reverse(string)
   list = string.split('+')
   decoded = []
 
