@@ -1,5 +1,9 @@
 import random
 
+# Things to do
+# Add capitals to encryption method
+# Find ways to improve security
+
 def reverse(string):
   """
   Returns a reversed string
