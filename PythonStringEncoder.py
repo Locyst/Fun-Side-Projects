@@ -16,15 +16,17 @@ def encode(string, seed=None):
   encoded.append("+")
 
   print(f'Creating encoded message using seed: {seed}')
-  
+
   for word in string:
       for character in word:
           if character == " ":
               encoded.append("%20")
+              encoded.append("+")
           elif character == "+":
               encoded.append("%40")
+              encoded.append("+")
           else:
-              encoded.append(character)
+              encoded.append(str(ord(character) - seed[1] + seed[2]))
               encoded.append("+")
 
   return ''.join(encoded)
@@ -32,22 +34,22 @@ def encode(string, seed=None):
 def decode(string, seed):
   if seed is None:
     print("Cannot run without a seed")
+  list = string.split('+')
   decoded = []
-  i = 0
 
-  while i < len(string):
-      if string[i:i+3] == "%20":
+  
+  while("" in list):
+    list.remove("")
+
+  for character in list:
+    if "%" in character:
+      match character:
+        case "%20":
           decoded.append(" ")
-          i += 3
-      elif string[i:i+3] == "%40":
+        case "%40":
           decoded.append("+")
-          i += 3
-      else:
-        if string[i] != "+":
-          decoded.append(string[i])
-          i += 1
-        else:
-          i += 1
+    else:
+      decoded.append(chr(int(character) + seed [1] - seed[2]))
   
   return ''.join(decoded)
 
