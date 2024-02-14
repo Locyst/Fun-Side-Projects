@@ -1,36 +1,58 @@
-def encode(string):
-    encoded = []
+import random
 
-    for word in string:
-        for character in word:
-            if character == " ":
-                encoded.append("%20")
-            elif character == "+":
-                encoded.append("%40")
-            else:
-                encoded.append(character)
-                encoded.append("+")
+def createSeed():
+  capitals = random.randint(0, 9)
+  backs = random.randint(0, 9)
+  fronts = random.randint(0, 9)
+  extra = random.randint(0, 9)
 
-    return ''.join(encoded)
+  return [capitals, backs, fronts, extra]
 
-def decode(string):
-    decoded = []
-    i = 0
+def encode(string, seed=None):
+  if seed is None:
+    seed = createSeed()
+  encoded = []
 
-    while i < len(string):
-        if string[i:i+3] == "%20":
-            decoded.append(" ")
-            i += 3
-        elif string[i:i+3] == "%40":
-            decoded.append("+")
-            i += 3
+  encoded.append("+")
+
+  print(f'Creating encoded message using seed: {seed}')
+  
+  for word in string:
+      for character in word:
+          if character == " ":
+              encoded.append("%20")
+          elif character == "+":
+              encoded.append("%40")
+          else:
+              encoded.append(character)
+              encoded.append("+")
+
+  return ''.join(encoded)
+
+def decode(string, seed):
+  if seed is None:
+    print("Cannot run without a seed")
+  decoded = []
+  i = 0
+
+  while i < len(string):
+      if string[i:i+3] == "%20":
+          decoded.append(" ")
+          i += 3
+      elif string[i:i+3] == "%40":
+          decoded.append("+")
+          i += 3
+      else:
+        if string[i] != "+":
+          decoded.append(string[i])
+          i += 1
         else:
-            decoded.append(string[i])
-            i += 1
+          i += 1
+  
+  return ''.join(decoded)
 
-    return ''.join(decoded)
+seed = createSeed()
 
-
-print(encode("Hello World!"))
-string = encode("Hello World!")
-print(decode(string))
+string = encode("Hello World!", seed)
+print(string)
+print(decode(string, seed))
