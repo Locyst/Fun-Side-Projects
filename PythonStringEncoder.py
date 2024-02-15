@@ -146,5 +146,6 @@ string = "Hello World!"
 encoded = encode(string, seed)
 decoded = decode(encoded, seed)
 
+print(seed)
 print(encoded)
 print(decoded)
