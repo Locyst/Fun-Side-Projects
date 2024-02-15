@@ -1,5 +1,6 @@
 import secrets
 
+# Version 0.2.5
 
 # Things to do
 # Replace encrytion method with AES ( Very silly idea but I plan to do it in the future when I learn more about it )
