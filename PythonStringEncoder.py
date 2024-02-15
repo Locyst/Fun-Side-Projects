@@ -3,7 +3,6 @@ import secrets
 # Version 0.0.9
 
 # Things to do
-# Replace encrytion method with AES ( Very silly idea but I plan to do it in the future when I learn more about it )
 # No this probably is not very secure
 
 falseSpace = '​' #Do not add anything here as there is already something here
