@@ -44,11 +44,15 @@ def createSeed(securityLevel=10):
 
     highest = 9 * securityLevel
 
-    capitals = random.randint(0, highest)
-    while backs == fronts:
+    while capitals == backs or capitals == fronts or capitals == extra:
+        capitals = random.randint(0, highest)
+    while backs == capitals or backs == fronts or backs == extra:
         backs = random.randint(0, highest)
+    while fronts == capitals or fronts == backs or fronts == extra:
         fronts = random.randint(0, highest)
-    extra = random.randint(0, highest)
+    while extra == capitals or extra == backs or extra == fronts:
+        extra = random.randint(0, highest)
+    capitals = random.randint(0, highest)
 
     return [capitals, backs, fronts, extra]
 
@@ -81,10 +85,7 @@ def encode(string, seed=None):
     for word in string:
         for character in word:
             if character == " ":
-                encoded.append("%20")
-                encoded.append(falseSpace)
-            elif character == "+":
-                encoded.append("%40")
+                encoded.append(f"%{seed[3]}")
                 encoded.append(falseSpace)
             else:
                 if i in capitals:
@@ -126,11 +127,8 @@ def decode(string, seed):
 
     for character in list:
         if "%" in character:
-            match character:
-                case "%20":
-                    decoded.append(" ")
-                case "%40":
-                    decoded.append("+")
+            if "%" in character and character == f"%{seed[3]}":
+                decoded.append(" ")
         else:
             if i in capitals:
                 decoded.append(chr(int(character) + seed[1] - seed[2]).lower())
@@ -140,7 +138,7 @@ def decode(string, seed):
 
     return ''.join(decoded)
 
-seed = createSeed()
+seed = createSeed(50)
 string = "Hello World!"
 
 encoded = encode(string, seed)
