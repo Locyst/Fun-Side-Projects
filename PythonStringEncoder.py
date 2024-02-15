@@ -2,7 +2,7 @@ import secrets
 
 
 # Things to do
-# Replace encrytion method with AES
+# Replace encrytion method with AES ( Very silly idea but I plan to do it in the future when I learn more about it )
 
 falseSpace = '​' #Do not add anything here as there is already something here
 
