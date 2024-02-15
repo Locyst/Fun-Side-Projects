@@ -4,6 +4,7 @@ import secrets
 
 # Things to do
 # Replace encrytion method with AES ( Very silly idea but I plan to do it in the future when I learn more about it )
+# No this probably is not very secure
 
 falseSpace = '​' #Do not add anything here as there is already something here
 
@@ -83,6 +84,9 @@ def encode(string, seed=None):
     while i < len(string):
         capitals.append(i)
         i += seed[0]
+    if not capitals:
+        capitals.append(seed[0])
+    print(capitals)
 
     i += seed[0]
     for word in string:
@@ -91,8 +95,11 @@ def encode(string, seed=None):
                 encoded.append(f"%{seed[3]}")
                 encoded.append(falseSpace)
             else:
-                char = str(ord(character.upper()) - seed[1] + seed[2])
-                encoded.append(char.upper()) if i in capitals else encoded.append(char)
+                char = str(ord(character.upper()) - seed[1] + seed[2]) if i in capitals else str(ord(character) - seed[1] + seed[2])
+                if character.isupper():
+                    encoded.append(f"#{char}")
+                else:
+                    encoded.append(char)
                 encoded.append(falseSpace)
         i += 1
 
@@ -125,6 +132,9 @@ def decode(string, seed):
     while i < len(list):
         capitals.append(i)
         i += seed[0]
+    if not capitals:
+        capitals.append(seed[0])
+    print(capitals)
 
     i = seed[0]
     for character in list:
@@ -132,14 +142,18 @@ def decode(string, seed):
             if "%" in character and character == f"%{seed[3]}":
                 decoded.append(" ")
         else:
-            char = chr(int(character) + seed[1] - seed[2])
-            decoded.append(char.lower()) if i in capitals else decoded.append(char)
+            if "#" in character:
+                char = character.replace("#", "")
+                char = chr(int(char) + seed[1] - seed[2])
+                decoded.append(char.upper()) if i in capitals else decoded.append(char)
+            else:
+                char = chr(int(character) + seed[1] - seed[2])
+                decoded.append(char.lower()) if i in capitals else decoded.append(char)
         i += 1
 
     return ''.join(decoded)
 
-#seed = generateSeed(50)
-seed = [1, 1, 1, 1]
+seed = generateSeed(50)
 string = "Hello World!"
 
 encoded = encode(string, seed)
