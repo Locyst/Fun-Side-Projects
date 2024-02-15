@@ -44,11 +44,11 @@ def createSeed(securityLevel=10):
 
     highest = 9 * securityLevel
 
-    while capitals == backs or capitals == fronts or capitals == extra or extra == 0:
+    while capitals == backs or capitals == fronts or capitals == extra or capitals == 0:
         capitals = random.randint(0, highest)
-    while backs == capitals or backs == fronts or backs == extra or extra == 0:
+    while backs == capitals or backs == fronts or backs == extra or backs == 0:
         backs = random.randint(0, highest)
-    while fronts == capitals or fronts == backs or fronts == extra or extra == 0:
+    while fronts == capitals or fronts == backs or fronts == extra or fronts == 0:
         fronts = random.randint(0, highest)
     while extra == capitals or extra == backs or extra == fronts or extra == 0:
         extra = random.randint(0, highest)
