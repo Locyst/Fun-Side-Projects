@@ -2,7 +2,6 @@ import secrets
 
 
 # Things to do
-# Make capitals work for decoding
 # Add more security
 
 falseSpace = '​'
@@ -25,7 +24,7 @@ def reverse(string):
     return returnString
 
 
-def createSeed(securityLevel=10):
+def generateSeed(securityLevel=10):
     """
     Creates a seed used for encoding
 
@@ -68,7 +67,7 @@ def encode(string, seed=None):
      - Str: The encoded string
     """
     if seed is None:
-        seed = createSeed()
+        seed = generateSeed()
         print(f'Creating encoded message using seed: {seed}')
     encoded = []
     capitals = []
@@ -80,17 +79,15 @@ def encode(string, seed=None):
         capitals.append(i)
         i += seed[0]
 
-    i = seed[3]
+    i += seed[0]
     for word in string:
         for character in word:
             if character == " ":
                 encoded.append(f"%{seed[3]}")
                 encoded.append(falseSpace)
             else:
-                if i in capitals:
-                    encoded.append(str(ord(character.upper()) - seed[1] + seed[2]))
-                else:
-                    encoded.append(str(ord(character) - seed[1] + seed[2]))
+                char = str(ord(character.upper()) - seed[1] + seed[2])
+                encoded.append(char.upper()) if i in capitals else encoded.append(char)
                 encoded.append(falseSpace)
         i += 1
 
@@ -124,20 +121,20 @@ def decode(string, seed):
         capitals.append(i)
         i += seed[0]
 
+    i = seed[0]
     for character in list:
         if "%" in character:
             if "%" in character and character == f"%{seed[3]}":
                 decoded.append(" ")
         else:
-            if i in capitals:
-                decoded.append(chr(int(character) + seed[1] - seed[2]).lower())
-            else:
-                decoded.append(chr(int(character) + seed[1] - seed[2]))
+            char = chr(int(character) + seed[1] - seed[2])
+            decoded.append(char.lower()) if i in capitals else decoded.append(char)
         i += 1
 
     return ''.join(decoded)
 
-seed = createSeed(50)
+#seed = generateSeed(50)
+seed = [1, 1, 1, 1]
 string = "Hello World!"
 
 encoded = encode(string, seed)
