@@ -2,9 +2,10 @@ import secrets
 
 
 # Things to do
-# Add more security
+# Replace encrytion method with AES
 
-falseSpace = '​'
+falseSpace = '​' #Do not add anything here as there is already something here
+
 def reverse(string):
     """
     Returns a reversed string
@@ -30,11 +31,14 @@ def generateSeed(securityLevel=10):
 
     Parameters:
      - securityLevel (int): The higher the number the stronger the
-     seed is. Do not input decimals ( Default is 1 )
+     seed is. Do not input decimals ( Default is 10 )
 
     Returns:
-     - List: A list that has where the captials are, how far back
-     to go, how far forwards to go and an extra
+     - List: A list with these ints.
+             - Capitals: Occournce for capitals in encrytion
+             - Banks: Used to see how much to subtract to final value
+             - Fronts: Used to see how much to add to final value
+             - Extra: Used for extra cases in the encrytion
     """
     capitals = 0
     backs = 0
