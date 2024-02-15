@@ -66,14 +66,20 @@ def encode(string, seed=None):
 
     Paramaters:
      - string (Str): The string going through the encryption method
-     - seed (List[int]): The seed being used for encryption
+     - seed (List[int]): The seed being used for encryption if none are used it will generate a random one
 
     Return:
-     - Str: The encoded string
+     - Tuple(str, list[int, int, int, int]):
+            - str: The encoded string
+            - list[
+                - Capitals (int): Occournce for capitals in encrytion
+                - Banks (int): Used to see how much to subtract to final value
+                - Fronts (int): Used to see how much to add to final value
+                - Extra (int): Used for extra cases in the encrytion
+                ]: The seed used for encoding
     """
     if seed is None:
         seed = generateSeed()
-        print(f'Creating encoded message using seed: {seed}')
     encoded = []
     capitals = []
 
@@ -85,7 +91,6 @@ def encode(string, seed=None):
         i += seed[0]
     if not capitals:
         capitals.append(seed[0])
-    print(capitals)
 
     i += seed[0]
     for word in string:
@@ -101,8 +106,8 @@ def encode(string, seed=None):
                     encoded.append(char)
                 encoded.append(falseSpace)
         i += 1
-
-    return reverse(''.join(encoded))
+    
+    return reverse(''.join(encoded)), seed
 
 
 def decode(string, seed):
@@ -119,24 +124,23 @@ def decode(string, seed):
     if seed is None:
         print("Cannot run without a seed")
     string = reverse(string)
-    list = string.split(falseSpace)
+    listString = string.split(falseSpace)
     decoded = []
     capitals = []
 
-    while ("" in list):
-        list.remove("")
+    while ("" in listString):
+        listString.remove("")
 
     i = seed[0]
 
-    while i < len(list):
+    while i < len(listString):
         capitals.append(i)
         i += seed[0]
     if not capitals:
         capitals.append(seed[0])
-    print(capitals)
 
     i = seed[0]
-    for character in list:
+    for character in listString:
         if "%" in character:
             if "%" in character and character == f"%{seed[3]}":
                 decoded.append(" ")
@@ -144,7 +148,7 @@ def decode(string, seed):
             if "#" in character:
                 char = character.replace("#", "")
                 char = chr(int(char) + seed[1] - seed[2])
-                decoded.append(char.upper()) if i in capitals else decoded.append(char)
+                decoded.append(char.upper())
             else:
                 char = chr(int(character) + seed[1] - seed[2])
                 decoded.append(char.lower()) if i in capitals else decoded.append(char)
@@ -156,8 +160,8 @@ seed = generateSeed(50)
 string = "Hello World!"
 
 encoded = encode(string, seed)
-decoded = decode(encoded, seed)
+decoded = decode(encoded[0], encoded[1])
 
 print(seed)
-print(encoded)
+print(encoded[0])
 print(decoded)
