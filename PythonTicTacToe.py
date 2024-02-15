@@ -1,7 +1,3 @@
-# TikTacToe
-# Created on: 12/24/23
-# Last Updated on: 12/24/23
-
 class GameScripts:
   def __init__(self):
     self.board = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
