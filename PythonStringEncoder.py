@@ -5,6 +5,7 @@ import random
 # Make capitals work for decoding
 # Add more security
 
+falseSpace = '​'
 def reverse(string):
     """
     Returns a reversed string
@@ -69,7 +70,7 @@ def encode(string, seed=None):
     encoded = []
     capitals = []
 
-    encoded.append("+")
+    encoded.append(falseSpace)
     i = seed[0]
 
     while i < len(string):
@@ -81,16 +82,16 @@ def encode(string, seed=None):
         for character in word:
             if character == " ":
                 encoded.append("%20")
-                encoded.append("+")
+                encoded.append(falseSpace)
             elif character == "+":
                 encoded.append("%40")
-                encoded.append("+")
+                encoded.append(falseSpace)
             else:
                 if i in capitals:
                     encoded.append(str(ord(character.upper()) - seed[1] + seed[2]))
                 else:
                     encoded.append(str(ord(character) - seed[1] + seed[2]))
-                encoded.append("+")
+                encoded.append(falseSpace)
         i += 1
 
     return reverse(''.join(encoded))
@@ -110,7 +111,7 @@ def decode(string, seed):
     if seed is None:
         print("Cannot run without a seed")
     string = reverse(string)
-    list = string.split('+')
+    list = string.split(falseSpace)
     decoded = []
     capitals = []
 
@@ -139,8 +140,8 @@ def decode(string, seed):
 
     return ''.join(decoded)
 
-seed = []
-string = ""
+seed = createSeed()
+string = "Hello World!"
 
 encoded = encode(string, seed)
 decoded = decode(encoded, seed)
