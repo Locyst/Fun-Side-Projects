@@ -20,29 +20,30 @@ def sortFiles():
 
     for file in os.listdir(f'{homeDir}/{unsortedDir}'):
         print(f'{homeDir}/{unsortedDir}/{file}')
-        if os.path.isdir(f'{homeDir}/{unsortedDir}/{file}') is False:
-            fileParts = file.split('.')
-            if len(fileParts) > 1:
-                fileExtension = fileParts[-1]
-                if fileExtension in documents:
-                    os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Documents/{file}')
-                elif fileExtension in music:
-                    os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Music/{file}')
-                elif fileExtension in videos:
-                    os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Videos/{file}')
-                elif fileExtension in images:
-                    os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Pictures/{file}')
-                else:
-                    print(f"Unknown file: {file}")
-            else:
-                print(f"Missing file extension: {file}")
-        else:
+        if os.path.isdir(f'{homeDir}/{unsortedDir}/{file}') is True:
             print(f"Folder detected: {file}")
+
+
+        fileParts = file.split('.')
+        if len(fileParts) > 1:
+            fileExtension = fileParts[-1]
+            if fileExtension in documents:
+                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Documents/{file}')
+            elif fileExtension in music:
+                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Music/{file}')
+            elif fileExtension in videos:
+                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Videos/{file}')
+            elif fileExtension in images:
+                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Pictures/{file}')
+            else:
+                print(f"Unknown file: {file}")
+        else:
+            print(f"Missing file extension: {file}")
 
 if __name__ == "__main__":
     print("Creating files")
     createFiles()
-    while (true):
+    while (True):
         print("Sorting files")
         sortFiles()
         time.sleep(300)
