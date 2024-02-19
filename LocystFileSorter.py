@@ -1,16 +1,19 @@
 import os
 import time
 
-homeDir = './Files'
-unsortedDir = 'Unsorted'
+homeDir = './Files' # Put the directory that this program is going to be placed in
+unsortedDir = 'Unsorted' # Put either your downloads folder or another file that is going to have all of the unsorted files
+
 
 def createFiles():
-    dirs = [f'{homeDir}/Pictures', f'{homeDir}/Documents', f'{homeDir}/Music', f'{homeDir}/Videos', f'{homeDir}/{unsortedDir}']
+    dirs = [f'{homeDir}/Pictures', f'{homeDir}/Documents', f'{homeDir}/Music', f'{homeDir}/Videos',
+            f'{homeDir}/{unsortedDir}']
     for directory in dirs:
         if not os.path.exists(directory):
             os.makedirs(directory)
         else:
             pass
+
 
 def sortFiles():
     documents = ['txt', 'md', 'pdf', 'doc']
@@ -22,7 +25,6 @@ def sortFiles():
         print(f'{homeDir}/{unsortedDir}/{file}')
         if os.path.isdir(f'{homeDir}/{unsortedDir}/{file}') is True:
             print(f"Folder detected: {file}")
-
 
         fileParts = file.split('.')
         if len(fileParts) > 1:
@@ -39,6 +41,7 @@ def sortFiles():
                 print(f"Unknown file: {file}")
         else:
             print(f"Missing file extension: {file}")
+
 
 if __name__ == "__main__":
     print("Creating files")
