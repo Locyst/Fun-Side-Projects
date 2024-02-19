@@ -6,13 +6,12 @@ unsortedDir = 'Unsorted' # Put either your downloads folder or another file that
 
 
 def createFiles():
-    dirs = [f'{homeDir}/Pictures', f'{homeDir}/Documents', f'{homeDir}/Music', f'{homeDir}/Videos',
-            f'{homeDir}/{unsortedDir}']
+    dirs = ['Documents', 'Pictures', 'Videos', 'Music',
+            unsortedDir]
     for directory in dirs:
-        if not os.path.exists(directory):
+        path = os.path.join(homeDir, directory)
+        if not os.path.exists(path):
             os.makedirs(directory)
-        else:
-            pass
 
 
 def sortFiles():
@@ -26,21 +25,17 @@ def sortFiles():
         if os.path.isdir(f'{homeDir}/{unsortedDir}/{file}') is True:
             print(f"Folder detected: {file}")
 
-        fileParts = file.split('.')
-        if len(fileParts) > 1:
-            fileExtension = fileParts[-1]
-            if fileExtension in documents:
-                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Documents/{file}')
-            elif fileExtension in music:
-                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Music/{file}')
-            elif fileExtension in videos:
-                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Videos/{file}')
-            elif fileExtension in images:
-                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Pictures/{file}')
-            else:
-                print(f"Unknown file: {file}")
+        _, fileExtension = os.path.splitext(file)
+        if fileExtension in documents:
+            os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Documents/{file}')
+        elif fileExtension in music:
+            os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Music/{file}')
+        elif fileExtension in videos:
+            os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Videos/{file}')
+        elif fileExtension in images:
+            os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Pictures/{file}')
         else:
-            print(f"Missing file extension: {file}")
+            print(f"Unknown file: {file}")
 
 
 if __name__ == "__main__":
