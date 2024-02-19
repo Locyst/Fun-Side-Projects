@@ -1,10 +1,8 @@
-"""
-Automatically sorts files based on their type into folders
-"""
-
 import os
+import time
+
 homeDir = './Files'
-unsortedDir = './Unsorted'
+unsortedDir = 'Unsorted'
 
 def createFiles():
     dirs = [f'{homeDir}/Pictures', f'{homeDir}/Documents', f'{homeDir}/Music', f'{homeDir}/Videos', f'{homeDir}/{unsortedDir}']
@@ -15,28 +13,36 @@ def createFiles():
             pass
 
 def sortFiles():
-    documents = ['txt']
-    music = ['m4a']
-    videos = ['mp4']
+    documents = ['txt', 'md', 'pdf', 'doc']
+    music = ['m4a', 'mp3', 'wav']
+    videos = ['mp4', 'avi', 'mkv', 'mov', 'wmv']
     images = ['png', 'jpg', 'jpeg']
-    if len(os.listdir(f'{homeDir}/{unsortedDir}')) > 0:
-        for file in os.listdir(f'{homeDir}/{unsortedDir}'):
-            if file.split('.')[1] in documents:
-                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Documents/{file}')
-            elif file.split('.')[1] in music:
-                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Music/{file}')
-            elif file.split('.')[1] in videos:
-                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Videos/{file}')
-            elif file.split('.')[1] in images:
-                os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Pictures/{file}')
+
+    for file in os.listdir(f'{homeDir}/{unsortedDir}'):
+        print(f'{homeDir}/{unsortedDir}/{file}')
+        if os.path.isdir(f'{homeDir}/{unsortedDir}/{file}') is False:
+            fileParts = file.split('.')
+            if len(fileParts) > 1:
+                fileExtension = fileParts[-1]
+                if fileExtension in documents:
+                    os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Documents/{file}')
+                elif fileExtension in music:
+                    os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Music/{file}')
+                elif fileExtension in videos:
+                    os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Videos/{file}')
+                elif fileExtension in images:
+                    os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Pictures/{file}')
+                else:
+                    print(f"Unknown file: {file}")
             else:
-                print(f"Unknown file: {file}")
-                pass
-    else:
-        print("No files to sort")
+                print(f"Missing file extension: {file}")
+        else:
+            print(f"Folder detected: {file}")
 
 if __name__ == "__main__":
     print("Creating files")
     createFiles()
-    print("Sorting files")
-    sortFiles()
+    while (true):
+        print("Sorting files")
+        sortFiles()
+        time.sleep(300)
