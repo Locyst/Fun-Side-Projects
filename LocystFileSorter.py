@@ -1,49 +1,53 @@
 import os
 import time
 
-homeDir = './Files' # Put the directory that this program is going to be placed in
-unsortedDir = 'Unsorted' # Put either your downloads folder or another file that is going to have all of the unsorted files
+class LocystFileSort:
+    documentExtensions = ['.txt', '.md', '.pdf', '.doc']
+    musicExtensions = ['.m4a', '.mp3', '.wav']
+    videoExtensions = ['.mp4', '.avi', '.mkv', '.mov', '.wmv']
+    imageExtensions = ['.png', '.jpg', '.jpeg']
 
+    homeDir = './Files' # Put the directory that this program is going to be placed in
+    unsortedDir = 'Unsorted' # Put either your downloads folder or another file that is going to have all of the unsorted files
 
-def createFiles():
     dirs = ['Documents', 'Pictures', 'Videos', 'Music',
-            unsortedDir]
-    for directory in dirs:
-        path = os.path.join(homeDir, directory)
-        if not os.path.exists(path):
-            os.makedirs(path)
+      unsortedDir]
+  
+    @classmethod
+    def init(cls):
+        for directory in cls.dirs:
+            path = os.path.join(cls.homeDir, directory)
+            if not os.path.exists(path):
+                os.makedirs(path)
 
+    @classmethod
+    def sort(cls):
+        for file in os.listdir(f'{cls.homeDir}/{cls.unsortedDir}'):
+            filePath = f'{cls.homeDir}/{cls.unsortedDir}/{file}'
+            print(filePath)
 
-def sortFiles():
-    documents = ['txt', 'md', 'pdf', 'doc']
-    music = ['m4a', 'mp3', 'wav']
-    videos = ['mp4', 'avi', 'mkv', 'mov', 'wmv']
-    images = ['png', 'jpg', 'jpeg']
+            if os.path.isdir(filePath) is True:
+                print(f"Folder detected: {file}")
 
-    for file in os.listdir(f'{homeDir}/{unsortedDir}'):
-        print(f'{homeDir}/{unsortedDir}/{file}')
-        if os.path.isdir(f'{homeDir}/{unsortedDir}/{file}') is True:
-            print(f"Folder detected: {file}")
+            _, fileExtension = os.path.splitext(file)
 
-        _, fileExtension = os.path.splitext(file)
-        unsortedPath = f'{homeDir}/{unsortedDir}/{file}'
-        
-        if fileExtension in documents:
-            os.replace(unsortedPath, f'{homeDir}/Documents/{file}')
-        elif fileExtension in music:
-            os.replace(unsortedPath, f'{homeDir}/Music/{file}')
-        elif fileExtension in videos:
-            os.replace(unsortedPath, f'{homeDir}/Videos/{file}')
-        elif fileExtension in images:
-            os.replace(unsortedPath, f'{homeDir}/Pictures/{file}')
-        else:
-            print(f"Unknown file: {file}")
+            if fileExtension in cls.documentExtensions:
+                os.replace(filePath, f'{cls.homeDir}/Documents/{file}')
+            elif fileExtension in cls.musicExtensions:
+                os.replace(filePath, f'{cls.homeDir}/Music/{file}')
+            elif fileExtension in cls.videoExtensions:
+                os.replace(filePath, f'{cls.homeDir}/Videos/{file}')
+            elif fileExtension in cls.imageExtensions:
+                os.replace(filePath, f'{cls.homeDir}/Pictures/{file}')
+            else:
+                print(f"Unknown file: {file}")
+                print(fileExtension)
 
 
 if __name__ == "__main__":
     print("Creating files")
-    createFiles()
+    LocystFileSort.init()
     while (True):
         print("Sorting files")
-        sortFiles()
+        LocystFileSort.sort()
         time.sleep(300)
