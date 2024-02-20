@@ -11,7 +11,7 @@ def createFiles():
     for directory in dirs:
         path = os.path.join(homeDir, directory)
         if not os.path.exists(path):
-            os.makedirs(directory)
+            os.makedirs(path)
 
 
 def sortFiles():
@@ -26,14 +26,16 @@ def sortFiles():
             print(f"Folder detected: {file}")
 
         _, fileExtension = os.path.splitext(file)
+        unsortedPath = f'{homeDir}/{unsortedDir}/{file}'
+        
         if fileExtension in documents:
-            os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Documents/{file}')
+            os.replace(unsortedPath, f'{homeDir}/Documents/{file}')
         elif fileExtension in music:
-            os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Music/{file}')
+            os.replace(unsortedPath, f'{homeDir}/Music/{file}')
         elif fileExtension in videos:
-            os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Videos/{file}')
+            os.replace(unsortedPath, f'{homeDir}/Videos/{file}')
         elif fileExtension in images:
-            os.replace(f'{homeDir}/{unsortedDir}/{file}', f'{homeDir}/Pictures/{file}')
+            os.replace(unsortedPath, f'{homeDir}/Pictures/{file}')
         else:
             print(f"Unknown file: {file}")
 
