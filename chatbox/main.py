@@ -1,10 +1,11 @@
 import json
 from difflib import get_close_matches
+from typing import Union
 
 # From a youtube video
 # Comments are being used to help me understand code
 
-def loadKnowledge(filePath):
+def loadKnowledge(filePath: str) -> dict:
   """
   Loads the data base with all of the bots information
 
@@ -21,7 +22,7 @@ def loadKnowledge(filePath):
 
   return data
 
-def saveKnowledge(filePath, data):
+def saveKnowledge(filePath: str, data: dict):
   """
   Saves all of the bots information into a json file
   
@@ -34,7 +35,7 @@ def saveKnowledge(filePath, data):
     json.dump(data, file, indent=2) # Uses the json library to 
     #dump the knowledge dict to store it inside of the file
 
-def findBestMatch(userQuestion, questions, cutoff=0.6):
+def findBestMatch(userQuestion: str, questions: list, cutoff: float=0.6) -> Union[list, None]:
   """
   Locates the best match for the question in the knowledge database
 
@@ -44,7 +45,7 @@ def findBestMatch(userQuestion, questions, cutoff=0.6):
    - cutoff (float): How precise does the match have to do be
 
   Returns:
-   - Union[str, None]: Returns the best match if there is one otherwise it returns nothing
+   - Union[list, None]: Returns the best match if there is one otherwise it returns nothing
   
   """
   matches = get_close_matches(userQuestion, questions, n=1, cutoff=cutoff) # Uses the get_close_matches function in the 
@@ -52,7 +53,7 @@ def findBestMatch(userQuestion, questions, cutoff=0.6):
   #matches the userQuestion
   return matches if matches else None
 
-def getAnswerForQuestion(question, knowledgeData):
+def getAnswerForQuestion(question: str, knowledgeData: dict):
   """
   Returns the stored answer for the question given
 
@@ -69,7 +70,13 @@ def getAnswerForQuestion(question, knowledgeData):
       return q["answer"]
 
 def chatBot():
-  knowledge = loadKnowledge('knowledge.json')
+  knowledge = loadKnowledge('./knowledge.json')
+  if knowledge:
+    print("Loaded information")
+    print(knowledge)
+  else:
+    print("Failed to load")
+    input()
 
   while True:
 
