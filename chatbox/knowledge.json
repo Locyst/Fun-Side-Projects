@@ -1,0 +1,12 @@
+{
+  "questions": [
+    {
+      "questions": "hello",
+      "answer": "Hello!"
+    },
+    {
+      "questions": "Why do people program Hello World!?",
+      "answer": "The 'Hello World' program is a simple program that can help people understand their programming languages syntax"
+    }
+  ]
+}
