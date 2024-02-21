@@ -2,9 +2,6 @@ import json
 from difflib import get_close_matches
 from typing import Union
 
-# From a youtube video
-# Comments are being used to help me understand code
-
 def loadKnowledge(filePath: str) -> dict:
   """
   Loads the data base with all of the bots information
