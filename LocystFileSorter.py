@@ -8,6 +8,11 @@ class LocystFileSort:
     videoExtensions = ['.mp4', '.avi', '.mkv', '.mov', '.wmv']
     imageExtensions = ['.png', '.jpg', '.jpeg']
 
+    documentFilePath = ''
+    musicFilePath = ''
+    videoFilePath = ''
+    imageFilePath = ''
+
     homeDir = './Files' # Put the directory that this program is going to be placed in
     unsortedDir = 'Unsorted' # Put either your downloads folder or another file that is going to have all of the unsorted files
     filePath = ''
@@ -22,6 +27,10 @@ class LocystFileSort:
             path = os.path.join(cls.homeDir, directory)
             if not os.path.exists(path):
                 os.makedirs(path)
+        cls.documentFilePath = f'{cls.homeDir}/Documents/{file}'
+        cls.musicFilePath = f'{cls.homeDir}/Music/{file}'
+        cls.videoFilePath = f'{cls.homeDir}/Videos/{file}'
+        cls.imageFilePath = f'{cls.homeDir}/Pictures/{file}'
         cls.filePath = f'{cls.homeDir}/{cls.unsortedDir}/{file}'
 
     @classmethod
@@ -39,13 +48,17 @@ class LocystFileSort:
             _, fileExtension = os.path.splitext(file)
 
             if fileExtension in cls.documentExtensions:
-                os.replace(cls.filePath, f'{cls.homeDir}/Documents/{file}')
+                os.replace(cls.filePath, cls.documentFilePath)
+                print(f'Moved {file} to {cls.documentFilePath}')
             elif fileExtension in cls.musicExtensions:
-                os.replace(cls.filePath, f'{cls.homeDir}/Music/{file}')
+                os.replace(cls.filePath, cls.musicFilePath)
+                print(f'Moved {file} to {cls.musicFilePath}')
             elif fileExtension in cls.videoExtensions:
-                os.replace(cls.filePath, f'{cls.homeDir}/Videos/{file}')
+                os.replace(cls.filePath, cls.videoFilePath)
+                print(f'Moved {file} to {cls.videoFilePath}')
             elif fileExtension in cls.imageExtensions:
-                os.replace(cls.filePath, f'{cls.homeDir}/Pictures/{file}')
+                os.replace(cls.filePath, cls.imageFilePath)
+                print(f'Moved {file} to {cls.imageFilePath}')
             else:
                 print(f"Unknown file: {file}")
                 print(fileExtension)
