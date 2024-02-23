@@ -9,7 +9,7 @@ class LocystFileSort:
     documentExtensions = ['.doc', '.docx', '.odt', '.pdf', '.xls', '.xlsx', '.ppt', '.pptx']
 
     documentFilePath = ''
-    musicFilePath = ''
+    audioFilePath = ''
     videoFilePath = ''
     imageFilePath = ''
 
@@ -27,7 +27,36 @@ class LocystFileSort:
             path = os.path.join(cls.homeDir, directory)
             if not os.path.exists(path):
                 os.makedirs(path)
+                
+        cls.documentFilePath = f'{cls.homeDir}/Documents/{file}'
+        cls.audioFilePath = f'{cls.homeDir}/Music/{file}'
+        cls.videoFilePath = f'{cls.homeDir}/Videos/{file}'
+        cls.imageFilePath = f'{cls.homeDir}/Pictures/{file}'
 
+    @classmethod
+    def checkImageFiles(cls, file):
+        fileName, fileExtension = os.path.splitext(file)
+        if fileExtension in cls.imageExtensions:
+            cls.moveFile(cls.filePath, cls.imageFilePath)
+    
+    @classmethod
+    def checkVideoFiles(cls, file):
+        fileName, fileExtension = os.path.splitext(file)
+        if fileExtension in cls.videoExtensions:
+            cls.moveFile(cls.filePath, cls.videoFilePath)
+    
+    @classmethod
+    def checkAudioFiles(cls, file):
+        fileName, fileExtension = os.path.splitext(file)
+        if fileExtension in cls.audioExtensions:
+            cls.moveFile(cls.filePath, cls.audioFilePath)
+    
+    @classmethod
+    def checkDocumentFiles(cls, file):
+        fileName, fileExtension = os.path.splitext(file)
+        if fileExtension in cls.documentExtensions:
+            cls.moveFile(cls.filePath, cls.documentFilePath)
+    
     @classmethod
     def moveFile(oldFilePath, newFilePath):
         os.replace(oldFilePath, newFilePath)
@@ -41,29 +70,16 @@ class LocystFileSort:
             return 0
         
         for file in os.listdir(f'{cls.homeDir}/{cls.unsortedDir}'):
-            cls.documentFilePath = f'{cls.homeDir}/Documents/{file}'
-            cls.musicFilePath = f'{cls.homeDir}/Music/{file}'
-            cls.videoFilePath = f'{cls.homeDir}/Videos/{file}'
-            cls.imageFilePath = f'{cls.homeDir}/Pictures/{file}'
             cls.filePath = f'{cls.homeDir}/{cls.unsortedDir}/{file}'
             print(filePath)
 
             if os.path.isdir(filePath) is True:
                 print(f"Folder detected: {file}")
 
-            _, fileExtension = os.path.splitext(file)
-
-            if fileExtension in cls.documentExtensions:
-                cls.moveFile(cls.filePath, cls.documentFilePath)
-            elif fileExtension in cls.musicExtensions:
-                cls.moveFile(cls.filePath, cls.musicFilePath)
-            elif fileExtension in cls.videoExtensions:
-                cls.moveFile(cls.filePath, cls.videoFilePath)
-            elif fileExtension in cls.imageExtensions:
-                cls.moveFile(cls.filePath, cls.imageFilePath)
-            else:
-                print(f"Unknown file: {file}")
-                print(fileExtension)
+            cls.checkImageFiles(file)
+            cls.checkVideoFiles(file)
+            cls.checkAudioFiles(file)
+            cls.checkDocumentFiles(file)
 
 
 if __name__ == "__main__":
