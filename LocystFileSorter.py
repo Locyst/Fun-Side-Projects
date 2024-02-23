@@ -27,11 +27,6 @@ class LocystFileSort:
             path = os.path.join(cls.homeDir, directory)
             if not os.path.exists(path):
                 os.makedirs(path)
-        cls.documentFilePath = f'{cls.homeDir}/Documents/{file}'
-        cls.musicFilePath = f'{cls.homeDir}/Music/{file}'
-        cls.videoFilePath = f'{cls.homeDir}/Videos/{file}'
-        cls.imageFilePath = f'{cls.homeDir}/Pictures/{file}'
-        cls.filePath = f'{cls.homeDir}/{cls.unsortedDir}/{file}'
 
     @classmethod
     def sort(cls):
@@ -40,6 +35,11 @@ class LocystFileSort:
             return 0
         
         for file in os.listdir(f'{cls.homeDir}/{cls.unsortedDir}'):
+            cls.documentFilePath = f'{cls.homeDir}/Documents/{file}'
+            cls.musicFilePath = f'{cls.homeDir}/Music/{file}'
+            cls.videoFilePath = f'{cls.homeDir}/Videos/{file}'
+            cls.imageFilePath = f'{cls.homeDir}/Pictures/{file}'
+            cls.filePath = f'{cls.homeDir}/{cls.unsortedDir}/{file}'
             print(filePath)
 
             if os.path.isdir(filePath) is True:
