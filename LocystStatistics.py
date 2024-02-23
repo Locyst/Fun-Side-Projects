@@ -9,24 +9,50 @@ class LocystStatistics:
             return False
         else:
             return True
-    
+
+    @classmethod
+    def numericCheck(cls, inputList):
+        returnStatement = True
+        for num in inputList:
+            if num.isnumeric() is false:
+                returnStatement = False
+        return returnStatement
+
+    def lengthCheck(cls, inputList):
+        returnStatement = True
+        if len(inputList) < 1:
+            returnStatement = False
+        return returnStatement
+
     @classmethod
     def meanCalculate(cls, inputList): # Average
-      inputList = cls.organize(inputList)
-      mean = 0
-    
-      for num in inputList:
-        mean += num
-    
-      mean = mean / len(inputList)
-      
-      return mean
+        if cls.numericCheck(inputList) or cls.lengthCheck(inputList):
+            inputList = cls.organize(inputList)
+            mean = 0
+            
+            for num in inputList:
+                mean += num
+                
+            mean = mean / len(inputList)
+            
+            return mean
+        else:
+            if cls.numericCheck(inputList) is False:
+                print("List cannot have strings")
+            if cls.lengthCheck(inputList) is false:
+                print("List cannot be empty")
       
     @classmethod
     def modeCalculate(cls, inputList): # Most Common
-      inputList = cls.organize(inputList)
-    
-      return max(set(inputList), key=inputList.count)
+        if cls.numericCheck(inputList) or cls.lengthCheck(inputList):
+            inputList = cls.organize(inputList)
+            
+            return max(set(inputList), key=inputList.count)
+        else:
+            if cls.numericCheck(inputList) is False:
+                print("List cannot have strings")
+            if cls.lengthCheck(inputList) is false:
+                print("List cannot be empty")
       
     @classmethod
     def medianCalculate(cls, inputList): # Middle
@@ -42,7 +68,6 @@ class LocystStatistics:
               del inputList[0]
               del inputList[-1]
           return (((inputList[-1] - inputList[0]) / 2) + inputList[0])
-      return "I dunno the logic yet"
       
     @classmethod
     def rangeCalculate(cls, inputList): # Biggest - Smallest
