@@ -8,10 +8,10 @@ class LocystFileSort:
     audioExtensions = ['.m4a', '.flac', '.mp3', '.wav', '.wma', '.aac']
     documentExtensions = ['.doc', '.docx', '.odt', '.pdf', '.xls', '.xlsx', '.ppt', '.pptx']
 
-    documentFilePath = ''
-    audioFilePath = ''
-    videoFilePath = ''
     imageFilePath = ''
+    videoFilePath = ''
+    audioFilePath = ''
+    documentFilePath = ''
 
     homeDir = './Files' # Put the directory that this program is going to be placed in
     unsortedDir = 'Unsorted' # Put either your downloads folder or another file that is going to have all of the unsorted files
