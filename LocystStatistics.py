@@ -1,5 +1,5 @@
 def organize(List):
-    return List.sort()
+    return sorted(List)
 
 def meanCalculate(List):
   List = organize(List)
@@ -15,13 +15,8 @@ def meanCalculate(List):
 
 def modeCalculate(List):
   List = organize(List)
-  mode = (0, 0)
-  
-  for num in List:
-    if num.count() > mode[1]:
-      mode = num, num.count()
 
-  return mode[0]
+  return max(set(List), key=List.count)
   
 def medianCalculate(List):
   List = organize(List)
@@ -36,3 +31,15 @@ def rangeCalculate(List):
 
   return range
   
+  
+  
+def test(List = [1, 5, 2, 3, 6, 7, 3])
+    print(f'List: {List}')
+    
+    print(f'The mean is: {meanCalculate(List)}')
+    print(f'The mode is: {modeCalculate(List)}')
+    print(f'The median is: {medianCalculate(List)}')
+    print(f'The range is: {rangeCalculate(List)}')
+    
+if __name__ == '__main__':
+    test()
