@@ -12,10 +12,10 @@ class LocystFileSort:
     videoFilePath = ''
     audioFilePath = ''
     documentFilePath = ''
+    filePath = ''
 
     homeDir = './Files' # Put the directory that this program is going to be placed in
     unsortedDir = 'Unsorted' # Put either your downloads folder or another file that is going to have all of the unsorted files
-    filePath = ''
 
     dirs = ['Documents', 'Pictures', 'Videos', 'Music',
       unsortedDir]
