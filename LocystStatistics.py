@@ -56,28 +56,42 @@ class LocystStatistics:
       
     @classmethod
     def medianCalculate(cls, inputList): # Middle
-      inputList = cls.organize(inputList)
-    
-      if cls.oddCheck(len(inputList)):
-          while len(inputList) > 1:
-              del inputList[0]
-              del inputList[-1]
-          return inputList[0]
-      else:
-          while len(inputList) > 2:
-              del inputList[0]
-              del inputList[-1]
-          return (((inputList[-1] - inputList[0]) / 2) + inputList[0])
+        if cls.numericCheck(inputList) or cls.lengthCheck(inputList):
+            inputList = cls.organize(inputList)
+            
+            if cls.oddCheck(len(inputList)):
+                while len(inputList) > 1:
+                    del inputList[0]
+                    del inputList[-1]
+                return inputList[0]
+            else:
+                while len(inputList) > 2:
+                    del inputList[0]
+                    del inputList[-1]
+                return (((inputList[-1] - inputList[0]) / 2) + inputList[0])
+        else:
+            if cls.numericCheck(inputList) is False:
+                print("List cannot have strings")
+            if cls.lengthCheck(inputList) is false:
+                print("List cannot be empty")
+
       
     @classmethod
     def rangeCalculate(cls, inputList): # Biggest - Smallest
-      inputList = cls.organize(inputList)
-      lowest = inputList[0]
-      highest = inputList[-1]
-    
-      Range = highest - lowest
-    
-      return Range
+        if cls.numericCheck(inputList) or cls.lengthCheck(inputList):
+            inputList = cls.organize(inputList)
+            lowest = inputList[0]
+            highest = inputList[-1]
+            
+            Range = highest - lowest
+            
+            return Range
+        else:
+            if cls.numericCheck(inputList) is False:
+                print("List cannot have strings")
+            if cls.lengthCheck(inputList) is false:
+                print("List cannot be empty")
+
   
   
   
