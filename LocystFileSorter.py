@@ -29,6 +29,12 @@ class LocystFileSort:
                 os.makedirs(path)
 
     @classmethod
+    def moveFile(oldFilePath, newFilePath):
+        os.replace(oldFilePath, newFilePath)
+        print(f'Moved {file} to {newFilePath}')
+
+    
+    @classmethod
     def sort(cls):
         if cls.initized is False:
             print("Run init before running other code")
@@ -48,17 +54,13 @@ class LocystFileSort:
             _, fileExtension = os.path.splitext(file)
 
             if fileExtension in cls.documentExtensions:
-                os.replace(cls.filePath, cls.documentFilePath)
-                print(f'Moved {file} to {cls.documentFilePath}')
+                cls.moveFile(cls.filePath, cls.documentFilePath)
             elif fileExtension in cls.musicExtensions:
-                os.replace(cls.filePath, cls.musicFilePath)
-                print(f'Moved {file} to {cls.musicFilePath}')
+                cls.moveFile(cls.filePath, cls.musicFilePath)
             elif fileExtension in cls.videoExtensions:
-                os.replace(cls.filePath, cls.videoFilePath)
-                print(f'Moved {file} to {cls.videoFilePath}')
+                cls.moveFile(cls.filePath, cls.videoFilePath)
             elif fileExtension in cls.imageExtensions:
-                os.replace(cls.filePath, cls.imageFilePath)
-                print(f'Moved {file} to {cls.imageFilePath}')
+                cls.moveFile(cls.filePath, cls.imageFilePath)
             else:
                 print(f"Unknown file: {file}")
                 print(fileExtension)
