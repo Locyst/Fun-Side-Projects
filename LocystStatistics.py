@@ -1,106 +1,70 @@
 class LocystStatistics:
-    @classmethod
-    def organize(cls, inputList):
-        return sorted(inputList)
+    @staticmethod
+    def organize(input_list):
+        """Sorts the input list."""
+        return sorted(input_list)
     
-    @classmethod
-    def oddCheck(cls, num):
-        if num % 2 == 0:
-            return False
-        else:
-            return True
+    @staticmethod
+    def odd_check(num):
+        """Checks if a number is odd."""
+        return num % 2 != 0
+
+    @staticmethod
+    def numeric_check(input_list):
+        """Checks if all elements in the list are numeric."""
+        return all(isinstance(x, (int, float)) for x in input_list)
+
+    @staticmethod
+    def length_check(input_list):
+        """Checks if the list is not empty."""
+        return len(input_list) > 0
 
     @classmethod
-    def numericCheck(cls, inputList):
-        for num in inputList:
-            if str(num).isnumeric() is False:
-                return False
-        return True
+    def mean(cls, input_list):
+        """Calculates the mean of the input list."""
+        if not cls.numeric_check(input_list) or not cls.length_check(input_list):
+            raise ValueError("Input list must contain numeric values and cannot be empty")
+        
+        return sum(input_list) / len(input_list)
 
     @classmethod
-    def lengthCheck(cls, inputList):
-        if len(inputList) < 1:
-            return False
-        return True
+    def mode(cls, input_list):
+        """Calculates the mode of the input list."""
+        if not cls.numeric_check(input_list) or not cls.length_check(input_list):
+            raise ValueError("Input list must contain numeric values and cannot be empty")
+        
+        return max(set(input_list), key=input_list.count)
 
     @classmethod
-    def mean(cls, inputList): # Average
-        if cls.numericCheck(inputList=inputList) and cls.lengthCheck(inputList=inputList):
-            inputList = cls.organize(inputList)
-            mean = 0
-            
-            for num in inputList:
-                mean += num
-                
-            mean = mean / len(inputList)
-            
-            return mean
+    def median(cls, input_list):
+        """Calculates the median of the input list."""
+        if not cls.numeric_check(input_list) or not cls.length_check(input_list):
+            raise ValueError("Input list must contain numeric values and cannot be empty")
+        
+        sorted_list = cls.organize(input_list)
+        n = len(sorted_list)
+        if cls.odd_check(n):
+            return sorted_list[n // 2]
         else:
-            if cls.numericCheck(inputList=inputList) is False:
-                print("List cannot have strings")
-            if cls.lengthCheck(inputList=inputList) is False:
-                print("List cannot be empty")
-      
-    @classmethod
-    def mode(cls, inputList): # Most Common
-        if cls.numericCheck(inputList=inputList) and cls.lengthCheck(inputList=inputList):
-            inputList = cls.organize(inputList)
-            
-            return max(set(inputList), key=inputList.count)
-        else:
-            if cls.numericCheck(inputList=inputList) is False:
-                print("List cannot have strings")
-            if cls.lengthCheck(inputList=inputList) is False:
-                print("List cannot be empty")
-      
-    @classmethod
-    def median(cls, inputList): # Middle
-        if cls.numericCheck(inputList=inputList) and cls.lengthCheck(inputList=inputList):
-            inputList = cls.organize(inputList)
-            
-            if cls.oddCheck(len(inputList)):
-                while len(inputList) > 1:
-                    del inputList[0]
-                    del inputList[-1]
-                return inputList[0]
-            else:
-                while len(inputList) > 2:
-                    del inputList[0]
-                    del inputList[-1]
-                return (((inputList[-1] - inputList[0]) / 2) + inputList[0])
-        else:
-            if cls.numericCheck(inputList=inputList) is False:
-                print("List cannot have strings")
-            if cls.lengthCheck(inputList=inputList) is False:
-                print("List cannot be empty")
+            return (sorted_list[n // 2 - 1] + sorted_list[n // 2]) / 2
 
-      
     @classmethod
-    def range(cls, inputList): # Biggest - Smallest
-        if cls.numericCheck(inputList=inputList) and cls.lengthCheck(inputList=inputList):
-            inputList = cls.organize(inputList)
-            lowest = inputList[0]
-            highest = inputList[-1]
-            
-            Range = highest - lowest
-            
-            return Range
-        else:
-            if cls.numericCheck(inputList=inputList) is False:
-                print("List cannot have strings")
-            if cls.lengthCheck(inputList=inputList) is False:
-                print("List cannot be empty")
-
+    def range(cls, input_list):
+        """Calculates the range of the input list."""
+        if not cls.numeric_check(input_list) or not cls.length_check(input_list):
+            raise ValueError("Input list must contain numeric values and cannot be empty")
+        
+        sorted_list = cls.organize(input_list)
+        return sorted_list[-1] - sorted_list[0]
   
   
-  
-def test(inputList = [1, 5, 2, 3, 6, 7, 3]):
-    print(f'inputList: {inputList}\n')
+def test(input_list=[1, 5, 2, 3, 6, 7, 3]):
+    print(f'input_list: {input_list}\n')
     
-    print(f'The mean is: {LocystStatistics.mean(inputList)}')
-    print(f'The mode is: {LocystStatistics.mode(inputList)}')
-    print(f'The median is: {LocystStatistics.median(inputList)}')
-    print(f'The range is: {LocystStatistics.range(inputList)}')
+    print(f'The mean is: {LocystStatistics.mean(input_list)}')
+    print(f'The mode is: {LocystStatistics.mode(input_list)}')
+    print(f'The median is: {LocystStatistics.median(input_list)}')
+    print(f'The range is: {LocystStatistics.range(input_list)}')
     
 if __name__ == '__main__':
     test()
