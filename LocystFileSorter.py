@@ -3,10 +3,10 @@ import time
 
 class LocystFileSort:
     initized = False
-    documentExtensions = ['.txt', '.md', '.pdf', '.doc']
-    musicExtensions = ['.m4a', '.mp3', '.wav']
-    videoExtensions = ['.mp4', '.avi', '.mkv', '.mov', '.wmv']
-    imageExtensions = ['.png', '.jpg', '.jpeg']
+    imageExtensions = ['.jpg', '.jpeg', '.jpe', '.jif', '.jfif', '.jfi', '.png', '.gif', '.webp', '.tiff', '.tif', '.psd', '.raw', '.arw', '.cr2', '.nrw', '.k25', '.bmp', '.dib', '.heif', '.heic', '.ind', '.indd', '.indt', '.jp2', '.j2k', '.jpf', '.jpx', '.jpm', '.mj2', '.svg']
+    videoExtensions = ['.webm', '.mpg', '.mp2', '.mpeg', '.mpe', '.mpv', '.ogg', '.mp4', '.mp4v', '.m4v', '.avi', '.wmv', '.mov', '.qt', '.flv', '.swf', '.avchd']
+    audioExtensions = ['.m4a', '.flac', '.mp3', '.wav', '.wma', '.aac']
+    documentExtensions = ['.doc', '.docx', '.odt', '.pdf', '.xls', '.xlsx', '.ppt', '.pptx']
 
     documentFilePath = ''
     musicFilePath = ''
