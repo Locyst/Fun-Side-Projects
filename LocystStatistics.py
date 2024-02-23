@@ -12,21 +12,20 @@ class LocystStatistics:
 
     @classmethod
     def numericCheck(cls, inputList):
-        returnStatement = True
         for num in inputList:
-            if num.isnumeric() is false:
-                returnStatement = False
-        return returnStatement
-
-    def lengthCheck(cls, inputList):
-        returnStatement = True
-        if len(inputList) < 1:
-            returnStatement = False
-        return returnStatement
+            if str(num).isnumeric() is False:
+                return False
+        return True
 
     @classmethod
-    def meanCalculate(cls, inputList): # Average
-        if cls.numericCheck(inputList) or cls.lengthCheck(inputList):
+    def lengthCheck(cls, inputList):
+        if len(inputList) < 1:
+            return False
+        return True
+
+    @classmethod
+    def mean(cls, inputList): # Average
+        if cls.numericCheck(inputList=inputList) and cls.lengthCheck(inputList=inputList):
             inputList = cls.organize(inputList)
             mean = 0
             
@@ -37,26 +36,26 @@ class LocystStatistics:
             
             return mean
         else:
-            if cls.numericCheck(inputList) is False:
+            if cls.numericCheck(inputList=inputList) is False:
                 print("List cannot have strings")
-            if cls.lengthCheck(inputList) is false:
+            if cls.lengthCheck(inputList=inputList) is False:
                 print("List cannot be empty")
       
     @classmethod
-    def modeCalculate(cls, inputList): # Most Common
-        if cls.numericCheck(inputList) or cls.lengthCheck(inputList):
+    def mode(cls, inputList): # Most Common
+        if cls.numericCheck(inputList=inputList) and cls.lengthCheck(inputList=inputList):
             inputList = cls.organize(inputList)
             
             return max(set(inputList), key=inputList.count)
         else:
-            if cls.numericCheck(inputList) is False:
+            if cls.numericCheck(inputList=inputList) is False:
                 print("List cannot have strings")
-            if cls.lengthCheck(inputList) is false:
+            if cls.lengthCheck(inputList=inputList) is False:
                 print("List cannot be empty")
       
     @classmethod
-    def medianCalculate(cls, inputList): # Middle
-        if cls.numericCheck(inputList) or cls.lengthCheck(inputList):
+    def median(cls, inputList): # Middle
+        if cls.numericCheck(inputList=inputList) and cls.lengthCheck(inputList=inputList):
             inputList = cls.organize(inputList)
             
             if cls.oddCheck(len(inputList)):
@@ -70,15 +69,15 @@ class LocystStatistics:
                     del inputList[-1]
                 return (((inputList[-1] - inputList[0]) / 2) + inputList[0])
         else:
-            if cls.numericCheck(inputList) is False:
+            if cls.numericCheck(inputList=inputList) is False:
                 print("List cannot have strings")
-            if cls.lengthCheck(inputList) is false:
+            if cls.lengthCheck(inputList=inputList) is False:
                 print("List cannot be empty")
 
       
     @classmethod
-    def rangeCalculate(cls, inputList): # Biggest - Smallest
-        if cls.numericCheck(inputList) or cls.lengthCheck(inputList):
+    def range(cls, inputList): # Biggest - Smallest
+        if cls.numericCheck(inputList=inputList) and cls.lengthCheck(inputList=inputList):
             inputList = cls.organize(inputList)
             lowest = inputList[0]
             highest = inputList[-1]
@@ -87,9 +86,9 @@ class LocystStatistics:
             
             return Range
         else:
-            if cls.numericCheck(inputList) is False:
+            if cls.numericCheck(inputList=inputList) is False:
                 print("List cannot have strings")
-            if cls.lengthCheck(inputList) is false:
+            if cls.lengthCheck(inputList=inputList) is False:
                 print("List cannot be empty")
 
   
@@ -98,10 +97,10 @@ class LocystStatistics:
 def test(inputList = [1, 5, 2, 3, 6, 7, 3]):
     print(f'inputList: {inputList}\n')
     
-    print(f'The mean is: {LocystStatistics.meanCalculate(inputList)}')
-    print(f'The mode is: {LocystStatistics.modeCalculate(inputList)}')
-    print(f'The median is: {LocystStatistics.medianCalculate(inputList)}')
-    print(f'The range is: {LocystStatistics.rangeCalculate(inputList)}')
+    print(f'The mean is: {LocystStatistics.mean(inputList)}')
+    print(f'The mode is: {LocystStatistics.mode(inputList)}')
+    print(f'The median is: {LocystStatistics.median(inputList)}')
+    print(f'The range is: {LocystStatistics.range(inputList)}')
     
 if __name__ == '__main__':
     test()
