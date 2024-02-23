@@ -1,7 +1,7 @@
 class LocystStatistics:
     @classmethod
-    def organize(cls, List):
-        return sorted(List)
+    def organize(cls, inputList):
+        return sorted(inputList)
     
     @classmethod
     def oddCheck(cls, num):
@@ -11,44 +11,44 @@ class LocystStatistics:
             return True
     
     @classmethod
-    def meanCalculate(cls, List): # Average
-      List = cls.organize(List)
+    def meanCalculate(cls, inputList): # Average
+      inputList = cls.organize(inputList)
       mean = 0
     
-      for num in List:
+      for num in inputList:
         mean += num
     
-      mean = mean / len(List)
+      mean = mean / len(inputList)
       
       return mean
       
     @classmethod
-    def modeCalculate(cls, List): # Most Common
-      List = cls.organize(List)
+    def modeCalculate(cls, inputList): # Most Common
+      inputList = cls.organize(inputList)
     
-      return max(set(List), key=List.count)
+      return max(set(inputList), key=inputList.count)
       
     @classmethod
-    def medianCalculate(cls, List): # Middle
-      List = cls.organize(List)
+    def medianCalculate(cls, inputList): # Middle
+      inputList = cls.organize(inputList)
     
-      if cls.oddCheck(len(List)):
-          while len(List) > 1:
-              del List[0]
-              del List[-1]
-          return List[0]
+      if cls.oddCheck(len(inputList)):
+          while len(inputList) > 1:
+              del inputList[0]
+              del inputList[-1]
+          return inputList[0]
       else:
-          while len(List) > 2:
-              del List[0]
-              del List[-1]
-          return (((List[-1] - List[0]) / 2) + List[0])
+          while len(inputList) > 2:
+              del inputList[0]
+              del inputList[-1]
+          return (((inputList[-1] - inputList[0]) / 2) + inputList[0])
       return "I dunno the logic yet"
       
     @classmethod
-    def rangeCalculate(cls, List): # Biggest - Smallest
-      List = cls.organize(List)
-      lowest = List[0]
-      highest = List[-1]
+    def rangeCalculate(cls, inputList): # Biggest - Smallest
+      inputList = cls.organize(inputList)
+      lowest = inputList[0]
+      highest = inputList[-1]
     
       Range = highest - lowest
     
@@ -56,13 +56,13 @@ class LocystStatistics:
   
   
   
-def test(List = [1, 5, 2, 3, 6, 7, 3]):
-    print(f'List: {List}\n')
+def test(inputList = [1, 5, 2, 3, 6, 7, 3]):
+    print(f'inputList: {inputList}\n')
     
-    print(f'The mean is: {LocystStatistics.meanCalculate(List)}')
-    print(f'The mode is: {LocystStatistics.modeCalculate(List)}')
-    print(f'The median is: {LocystStatistics.medianCalculate(List)}')
-    print(f'The range is: {LocystStatistics.rangeCalculate(List)}')
+    print(f'The mean is: {LocystStatistics.meanCalculate(inputList)}')
+    print(f'The mode is: {LocystStatistics.modeCalculate(inputList)}')
+    print(f'The median is: {LocystStatistics.medianCalculate(inputList)}')
+    print(f'The range is: {LocystStatistics.rangeCalculate(inputList)}')
     
 if __name__ == '__main__':
     test()
